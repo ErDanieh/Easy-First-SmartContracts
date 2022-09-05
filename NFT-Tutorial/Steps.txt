@@ -1,0 +1,15 @@
+1. Install Hardhat at the project-folder
+    npm install --save-dev hardhat
+
+2. Execute Harhat and choose the type of project
+    nodejs at this case
+    npx hardhat
+
+3. In case we r on windows
+    npm install --save-dev @nomicfoundation/hardhat-toolbox
+
+4. Install de contract 
+    npm install @openzeppelin/contracts
+
+5. Create a new Solidity file at contract folder
+    NFTee.sol

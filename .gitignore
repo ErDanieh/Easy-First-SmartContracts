@@ -75,3 +75,15 @@ typings/
 # FuseBox cache
 .fusebox/
 First-LearnWeb3 Example/package-lock.json
+
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+#Hardhat files
+cache
+artifacts
+
