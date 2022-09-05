@@ -29,35 +29,35 @@
     type="application/javascript"
   ></script>
   <script>
-    const MoodContractAddress = "0x2774c15afFcd237340048a89f543e6619181dEb9";
+    const MoodContractAddress = "0x40c812a63151D3B63f2A9BEFA408d2eaB5005dcD";
     const MoodContractABI = [
-      {
-        inputs: [
-          {
-            internalType: "string",
-            name: "_mood",
-            type: "string",
-          },
-        ],
-        name: "setMood",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [],
-        name: "getMood",
-        outputs: [
-          {
-            internalType: "string",
-            name: "",
-            type: "string",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
-    ];
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_mood",
+				"type": "string"
+			}
+		],
+		"name": "setMood",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getMood",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
     let MoodContract;
     let signer;
     const provider = new ethers.providers.Web3Provider(
