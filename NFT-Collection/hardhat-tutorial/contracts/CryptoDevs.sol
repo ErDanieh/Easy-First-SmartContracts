@@ -34,6 +34,9 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
     //max number of CryptoDevs
     uint256 public maxTokenIds = 20;
 
+    // total number of tokenIds minted
+    uint256 public tokenIds;
+
     //Whitelist contract instance
     IWhitelist whitelist;
 
@@ -60,5 +63,35 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
     {
         _baseTokenURI = baseURI;
         whitelist = IWhitelist(whitelistContract);
+    }
+
+    //Function for start the presale
+    function startPresale() public onlyOwner {
+        presaleStarted = true;
+        //set presaleEnded time as current timestamp + 5 minutes
+
+        presaleEnded = block.timestamp + 5;
+    }
+
+    /**
+    Allow users to mint one NFT per transaction during the presale
+     */
+    function presaleMint() public payable onlyWhenNotPaused {
+        //Comprobe that the presale has started and is not ended
+        require(
+            presaleStarted && block.timestamp < presaleEnded,
+            "Presale is not running"
+        );
+
+        //Comprobe that addresses of the user is whitelisted
+        require(
+            whitelist.whitelistedAddresses(msg.sender),
+            "You are not whitelisted"
+        );
+        //Comprobe that the user has enought ether
+        require(msg.value >= _price, "Ether sent is not correct");
+
+        tokenIds += 1;
+        _safeMint(msg.sender, tokendIds);
     }
 }
