@@ -1,4 +1,4 @@
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.9;
 
 /**
 Import de ERC721Enumerable standard from OpenZeppelin
@@ -47,7 +47,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
     uint256 public presaleEnded;
 
     //Modifier for paused contract
-    modifier OnlyWhenNotPauses() {
+    modifier onlyWhenNotPaused() {
         require(!_paused, "Contract currently paused");
         _;
     }
@@ -92,7 +92,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
         require(msg.value >= _price, "Ether sent is not correct");
 
         tokenIds += 1;
-        _safeMint(msg.sender, tokendIds);
+        _safeMint(msg.sender, tokenIds);
     }
 
     //Mint all the tokens
