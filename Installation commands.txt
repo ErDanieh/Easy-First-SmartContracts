@@ -5,3 +5,13 @@ HardHat installation:
 - npx hardhat
 
 - npm install --save-dev @nomicfoundation/hardhat-toolbox
+
+
+OpenZeppelin Contracts installation:
+
+- npm install @openzeppelin/contracts
+
+
+Usefull npm for config:
+
+- npm install dotenv
