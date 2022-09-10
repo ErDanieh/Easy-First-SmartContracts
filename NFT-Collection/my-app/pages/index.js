@@ -34,6 +34,52 @@ export default function Home() {
       //Create a new instance of the contract with a signer, which allows
       //update methods
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+
+      //call the presaleMint from the contract, only whitelisted addresses would be able to mint
+      const tx = await nftContract.presaleMint({
+        // value signifies the cost of one crypto dev which is "0.01" eth.
+        // We are parsing `0.01` string to ether using the utils library from ethers.js
+        value: utils.parseEther("0.01"),
+      });
+
+      setLoading(true);
+      //Wait for the transaction to get mined
+      await tx.wait();
+      setLoading(false);
+
+      window.alert("You succesfully minted a Crypto Dev");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const publicMint = async () => {
+    try {
+      //New signer instance
+      const signer = await getProviderOrSigner(true);
+      //New contract instance
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+
+      //Call mint from the contract to mint the Crypto Dev
+      const tx = await nftContract.mint({
+        value: utils.parseEther("0.01"),
+      });
+
+      setLoading(true);
+      //Wait for the transaction to get mined
+      await tx.wait();
+      setLoading(false);
+      window.alert("You succesfully minted a Crypto Dev");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //ConnectWallet: connect to metamask wallet
+  const connectWallet = async () => {
+    try {
+      await getProviderOrSigner();
+      setWalletConnected(true);
     } catch (error) {
       console.log(error);
     }
