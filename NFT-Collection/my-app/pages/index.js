@@ -27,8 +27,17 @@ export default function Home() {
   // Create a reference to the Web3 Modal (used for connecting to Metamask) which persists as long as the page is open
   const web3ModalRef = useRef();
 
+  const presaleMint = async () => {
+    try {
+      const signer = await getProviderOrSigner(true);
 
-  
+      //Create a new instance of the contract with a signer, which allows
+      //update methods
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
