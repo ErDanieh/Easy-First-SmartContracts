@@ -15,3 +15,12 @@ OpenZeppelin Contracts installation:
 Usefull npm for config:
 
 - npm install dotenv
+
+
+Front-End essentials:
+
+-npx create-next-app@latest
+
+-npm install web3modal
+
+-npm install ethers
