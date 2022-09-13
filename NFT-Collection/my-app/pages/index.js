@@ -85,6 +85,93 @@ export default function Home() {
     }
   };
 
+  const startPresale = async () => {
+    try {
+      const signer = await getProviderOrSigner();
+
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+
+      //Call the startPresale from contract
+      const tx = await nftContract.startPresale();
+      setLoading(true);
+      await tx.wait();
+      setLoading(false);
+
+      await checkIfPresaleStarted();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkIfPresaleStarted = async () => {
+    try {
+      // Get the provider from web3Modal, which in our case is MetaMask
+      // No need for the Signer here, as we are only reading state from the blockchain
+      const provider = await getProviderOrSigner();
+      // We connect to the Contract using a Provider, so we will only
+      // have read-only access to the Contract
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+      // call the presaleStarted from the contract
+      const _presaleStarted = await nftContract.presaleStarted();
+
+      if (!_presaleStarted) {
+        await getOwner();
+      }
+
+      setPresaleStarted(_presaleStarted);
+      return _presaleStarted;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  const checkIfPresaleEnded = async () => {
+    try {
+      const provider = await getProviderOrSigner();
+
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+
+      const _presaleEnded = await nftContract.presaleEnded();
+
+      const hasEnded = _presaleEnded.lt(Math.floor(Date.now() / 1000));
+
+      if (hasEnded) {
+        setPresaleEnded(true);
+      } else {
+        setPresaleEnded(false);
+      }
+
+      return hasEnded;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  const getOwner = async () => {
+    try {
+      // Get the provider from web3Modal, which in our case is MetaMask
+      // No need for the Signer here, as we are only reading state from the blockchain
+      const provider = await getProviderOrSigner();
+      // We connect to the Contract using a Provider, so we will only
+      // have read-only access to the Contract
+      const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+      // call the owner function from the contract
+      const _owner = await nftContract.owner();
+      // Get the address associated to the signer which is connected to  MetaMask
+      const signer = await getProviderOrSigner(true);
+      // Get the address associated to the signer which is connected to  MetaMask
+      const address = await signer.getAddress();
+
+      if (address.toLowerCase() === _owner.toLowerCase()) {
+        setIsOwner(true);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <Head>
