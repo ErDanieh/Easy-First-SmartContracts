@@ -1,5 +1,5 @@
-export const WHITELIST_CONTRACT_ADDRESS =
-  "0x7B4CfDdE6587b29b0e367350c3f7d1C51183D1F0";
+export const NFT_CONTRACT_ADDRESS =
+  "0xEe7C5826C4b249C51Be8BE9a1e8EB9Ed29fa21b7";
 export const abi = [
   {
     inputs: [

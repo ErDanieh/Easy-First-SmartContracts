@@ -5,6 +5,7 @@ import Web3Modal from "web3Modal";
 import { abi, NFT_CONTRACT_ADDRESS } from "../constants/index.js";
 import styles from "../styles/Home.module.css";
 
+
 export default function Home() {
   //Keep track of wheter the user's wallet is connected or not
   const [walletConnected, setWalletConnected] = useState(false);
@@ -30,10 +31,10 @@ export default function Home() {
   const presaleMint = async () => {
     try {
       const signer = await getProviderOrSigner(true);
-
       //Create a new instance of the contract with a signer, which allows
       //update methods
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
+      
 
       //call the presaleMint from the contract, only whitelisted addresses would be able to mint
       const tx = await nftContract.presaleMint({
@@ -87,7 +88,7 @@ export default function Home() {
 
   const startPresale = async () => {
     try {
-      const signer = await getProviderOrSigner();
+      const signer = await getProviderOrSigner(true);
 
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, signer);
 
@@ -105,14 +106,19 @@ export default function Home() {
 
   const checkIfPresaleStarted = async () => {
     try {
+      console.log("Check")
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
       const provider = await getProviderOrSigner();
+      console.log("Coge el provider");
       // We connect to the Contract using a Provider, so we will only
       // have read-only access to the Contract
+      console.log(NFT_CONTRACT_ADDRESS);
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+      console.log("Coge el contrato");
       // call the presaleStarted from the contract
       const _presaleStarted = await nftContract.presaleStarted();
+      console.log("Checkea si ha empezado");
 
       if (!_presaleStarted) {
         await getOwner();
@@ -252,6 +258,7 @@ export default function Home() {
       return <button className={styles.button}>Loading...</button>;
     }
 
+    
     // If connected user is the owner, and presale hasnt started yet, allow them to start the presale
     if (isOwner && !presaleStarted) {
       return (
