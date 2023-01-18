@@ -1,67 +1,67 @@
-export const WHITELIST_CONTRACT_ADDRESS = "0x4b3e3A23b504a0B4c87071a37cE3873D1c8d83be";
+export const WHITELIST_CONTRACT_ADDRESS =
+  "0xe685896B5BC7c6630a835C63F3724fEb71076D21";
 export const abi = [
+  {
+    inputs: [
       {
-        "inputs": [
-          {
-            "internalType": "uint8",
-            "name": "_maxWhitelistedAddresses",
-            "type": "uint8"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
+        internalType: "uint8",
+        name: "_maxWhitelistedAddresses",
+        type: "uint8",
       },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "addAddressToWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxWhitelistedAddress",
+    outputs: [
       {
-        "inputs": [],
-        "name": "addAddressToWhitelist",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
       },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "numAddressesWhitelisted",
+    outputs: [
       {
-        "inputs": [],
-        "name": "maxWhitelistedAddresses",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
       },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
       {
-        "inputs": [],
-        "name": "numAddressesWhitelisted",
-        "outputs": [
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        internalType: "address",
+        name: "",
+        type: "address",
       },
+    ],
+    name: "whitelistedAddress",
+    outputs: [
       {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "whitelistedAddresses",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      }
-    ]
-  ;
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];

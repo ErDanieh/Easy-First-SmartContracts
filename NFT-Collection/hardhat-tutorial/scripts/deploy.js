@@ -3,33 +3,35 @@ require("dotenv").config({ path: ".env" });
 const { WHITELIST_CONTRACT_ADDRESS, METADATA_URL } = require("../constants");
 
 async function main() {
-  // Address of the whitelist contract that you deployed in the previous module
+  //Address al whitelist contract
   const whitelistContract = WHITELIST_CONTRACT_ADDRESS;
-  // URL from where we can extract the metadata for a Crypto Dev NFT
+
+  //URL para la metadata
   const metadataURL = METADATA_URL;
+
   /*
-  A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
-  so cryptoDevsContract here is a factory for instances of our CryptoDevs contract.
+    crear una instancia de un contrato inteligente denominado "CryptoDevs" en la blockchain Ethereum.
+     La función getContractFactory permite crear una nueva instancia de un contrato inteligente existente
+      a partir de su interfaz ABI (Application Binary Interface) y su dirección en la blockchain.
+      En este caso, se está asignando la nueva instancia del contrato a la variable cryptoDevsContract.
   */
   const cryptoDevsContract = await ethers.getContractFactory("CryptoDevs");
 
-  // deploy the contract
   const deployedCryptoDevsContract = await cryptoDevsContract.deploy(
     metadataURL,
     whitelistContract
   );
 
-  // print the address of the deployed contract
+  //Esperamos a que el contrato se despliegue
+  await deployedCryptoDevsContract.deployed();
+
   console.log(
-    "Crypto Devs Contract Address:",
+    "Address del contrato generador de NFTs",
     deployedCryptoDevsContract.address
   );
 }
 
-// Call the main function and catch if there is any error
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
+main().then(() => process.exit(0)).catch((error) => {
     console.error(error);
     process.exit(1);
-  });
+})

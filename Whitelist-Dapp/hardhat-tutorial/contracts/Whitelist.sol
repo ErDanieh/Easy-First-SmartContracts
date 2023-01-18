@@ -1,39 +1,24 @@
+//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-contract Whitelist {
-    //Max number of whitelisted addresses allowed
-    uint256 public maxWhitelistedAddresses;
+contract Whitelist{
+    uint8 public maxWhitelistedAddress;
 
-    //Create a mapping of whitelistedaddresses
-    mapping(address => bool) public whitelistedAddresses;
+    mapping(address => bool) public whitelistedAddress;
 
-    // numAddressesWhitelisted would be used to keep track of how many addresses have been whitelisted
     uint8 public numAddressesWhitelisted;
 
-    //The user can change the limitation number at the time of deployment
-    constructor(uint8 _maxWhitelistedAddresses) {
-        maxWhitelistedAddresses = _maxWhitelistedAddresses;
+    constructor(uint8 _maxWhitelistedAddresses){
+        maxWhitelistedAddress = _maxWhitelistedAddresses;
     }
-
-    //This function add users to the whitelist
 
     function addAddressToWhitelist() public {
-        //Check if the address is already whitelisted
-        require(
-            !whitelistedAddresses[msg.sender],
-            "Sender has already been whitelisted"
-        );
+         require(!whitelistedAddress[msg.sender], "El usuario ya esta en la whitelist");
+        require(numAddressesWhitelisted < maxWhitelistedAddress, "Limite alcanzado");
 
-        //Check max number of address is reached
-        require(
-            numAddressesWhitelisted < maxWhitelistedAddresses,
-            "Whitelist is full"
-        );
+        whitelistedAddress[msg.sender] = true;
 
-        //Add the new address to the whitelist
-        whitelistedAddresses[msg.sender] = true;
-
-        //Increase the number of whitelisted addresses
         numAddressesWhitelisted += 1;
     }
+
 }
